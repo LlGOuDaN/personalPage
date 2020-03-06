@@ -1,13 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './App.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./App.scss";
+import RootRouter from "@Containers/RootRouter";
 
 const App: React.FC = () => {
-  return (
-    <div className="App">
-      <div>Hello World</div>
-    </div>
-  );
-}
+  return <RootRouter />;
+};
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));

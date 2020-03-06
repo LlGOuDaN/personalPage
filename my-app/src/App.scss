@@ -1,0 +1,28 @@
+html {
+  width: 100%;
+  box-sizing: border-box;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  height: 100%;
+  margin: 0;
+  scroll-behavior: smooth;
+  background-color: #f4f4f4;
+  color: #1a1a1a;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#root {
+  width: 100%;
+}
+
+@import "@Containers/Main/styles.scss";
