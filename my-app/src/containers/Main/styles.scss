@@ -4,5 +4,70 @@
   &__top-section {
     min-height: 700px;
     background-color: black;
+
+    .top-section__intro {
+      color: white;
+      position: absolute;
+      top: 25%;
+      right: 20%;
+
+      > h5 {
+        font-size: 1.7em;
+      }
+
+      > h2 {
+        position: relative;
+        margin-top: 0.2em;
+        font-size: 3em;
+        letter-spacing: 8px;
+      }
+
+      > h2::after {
+        position: absolute;
+        content: "";
+        width: 150px;
+        height: 2px;
+        bottom: -8px;
+        right: 1px;
+        background: #47cf73;
+      }
+
+      > p {
+        font-size: 1em;
+        font-weight: 400;
+        padding: 4px 14px;
+        letter-spacing: 7px;
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .bottom {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        letter-spacing: 3px;
+
+        .about-icon {
+          font-size: 25px;
+          cursor: pointer;
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          margin-left: 10px;
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          border-left: 1px solid #47cf73;
+          transition: 0.5s ease-in;
+        }
+
+        .about-icon:hover {
+          transform: rotate(90deg);
+          border-left: none;
+          border-bottom: 1px solid white;
+          color: #47cf73;
+        }
+      }
+    }
   }
 }
