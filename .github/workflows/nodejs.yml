@@ -13,6 +13,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./my-app/
 
     strategy:
       matrix:
@@ -24,10 +26,6 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - name: show current dir
-      run: pwd
-    - name: cd to DIR
-      run: cd ./my-app/
     - name: show current dir
       run: pwd
     - name: npm install
