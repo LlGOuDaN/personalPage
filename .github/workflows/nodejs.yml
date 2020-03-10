@@ -27,9 +27,7 @@ jobs:
     - name: show current dir
       run: pwd
     - name: cd to DIR
-      run: cd $DIR
-      env: 
-        DIR: ./my-app/
+      run: cd ./my-app/
     - name: show current dir
       run: pwd
     - name: npm install
