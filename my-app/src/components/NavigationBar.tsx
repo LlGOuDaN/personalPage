@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import ShadowLogo from "./ShadowLogo";
+import React from 'react';
+import styled from 'styled-components';
+import ShadowLogo from './ShadowLogo';
 type INavigationBarProps = {};
 
 const Container = styled.div`
@@ -46,7 +46,7 @@ const Anchor = styled.div`
   }
 `;
 
-export default (props: INavigationBarProps) => {
+export default function NavigationBar(props: INavigationBarProps) {
   return (
     <Container className="navigation-bar">
       <ShadowLogo
@@ -75,4 +75,4 @@ export default (props: INavigationBarProps) => {
       </div>
     </Container>
   );
-};
+}

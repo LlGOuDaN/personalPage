@@ -1,7 +1,7 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React from 'react';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
-import Main from "@Containers/Main";
+import Main from '@Containers/Main';
 
 class RootRouter extends React.Component {
   render() {

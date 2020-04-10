@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 type IShadowLogoProps = {
   className?: string;
@@ -13,8 +13,8 @@ type IShadowLogoStyleProps = {
 };
 
 const Container = styled.div<IShadowLogoStyleProps>`
-  color: ${props => props.color};
-  font-size: ${props => props.fontSize}px;
+  color: ${(props) => props.color};
+  font-size: ${(props) => props.fontSize}px;
 
   .shadow-logo--inverse {
     opacity: 0.2;
@@ -23,7 +23,7 @@ const Container = styled.div<IShadowLogoStyleProps>`
   }
 `;
 
-export default (props: IShadowLogoProps) => {
+export default function ShadowLogo(props: IShadowLogoProps) {
   return (
     <Container className={props.className} {...props}>
       <a className="shadow-logo" href={props.href}>
@@ -31,4 +31,4 @@ export default (props: IShadowLogoProps) => {
       </a>
     </Container>
   );
-};
+}
