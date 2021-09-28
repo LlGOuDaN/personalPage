@@ -105,7 +105,7 @@ export default function Main(props: IMainProps) {
         <div>2016-2020</div>
         <div>Bachelor of Science in Computer Science</div>
         <div>Rose-Hulman Institute of Technology</div>
-        <img src={ImgUrls.rhit} alt="rhit" />
+        <img src={ImgUrls.rhit} alt="rhit" style={{ height: 400 }} />
       </div>
     </Fade>,
     <Fade right cascade key="content-box-1">
@@ -132,7 +132,7 @@ export default function Main(props: IMainProps) {
           &bull; Designed the Graphical user interface (GUI), tested and
           debugged for the project
         </div>
-        <img src={ImgUrls.csse220} alt="bommer-man" width={400} />
+        <img src={ImgUrls.csse220} alt="bommer-man" style={{ height: 400 }} />
       </div>
     </Fade>,
     <Fade right cascade key="content-box-2">
@@ -182,7 +182,7 @@ export default function Main(props: IMainProps) {
           &bull; Implemented the sql stored procedure for acquiring user profile
           information, chat messages and user credentials
         </div>
-        <img src={ImgUrls.rose_chat} alt="rose-chat" />
+        <img src={ImgUrls.rose_chat} alt="rose-chat" style={{ height: 400 }} />
       </div>
     </Fade>,
   ];
