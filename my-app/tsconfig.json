@@ -17,8 +17,10 @@
     "baseUrl": ".",
     "paths": {
       "@Components/*": ["src/components/*"],
-      "@Containers/*": ["src/containers/*"]
-    }
+      "@Containers/*": ["src/containers/*"],
+      "@Imgs/*": ["src/imgs/*"]
+    },
+    "typeRoots": ["./src/types", "./node_modules/@types"]
   },
   "include": ["src"]
 }

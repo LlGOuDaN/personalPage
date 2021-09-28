@@ -1,30 +1,235 @@
-import React from 'react';
-
-import NavigationBar from '@Components/NavigationBar';
-import AboutTitle from '@Components/AboutTitle';
+import ProgressBar from '@Components/ProgressBar';
+import React, { useEffect, useRef, useState } from 'react';
+import Fade from 'react-reveal/Fade';
+import cx from 'classnames';
+import ProgressDot from '@Components/ProgressDot';
+import ImgUrls from '@Imgs/imgs-url';
 
 type IMainProps = {};
 
+type IMainStates = {
+  progressDotActive: boolean[];
+  progressBarHeight: number;
+  progressDotLocations: number[];
+  maxScrollY: number;
+};
+
 export default function Main(props: IMainProps) {
+  const bar = useRef<HTMLDivElement>(null);
+  const barSection = useRef<HTMLDivElement>(null);
+  const progressDots = useRef<HTMLSpanElement[]>([]);
+  const contentBoxRefs = useRef<HTMLDivElement[]>([]);
+
+  const defaultState: IMainStates = {
+    progressDotActive: [],
+    progressBarHeight: 0,
+    progressDotLocations: [],
+    maxScrollY: window.scrollY + window.innerHeight / 2,
+  };
+
+  const [progressDotActive, setProgressDotActive] = useState<boolean[]>(
+    defaultState.progressDotActive
+  );
+  const [dotTops, setDotTops] = useState<number[]>([]);
+  const [maxScrollY, setMaxScrollY] = useState<number>(defaultState.maxScrollY);
+  const [progressBarHeight, setProgressBarHeight] = useState<number>(
+    defaultState.progressBarHeight
+  );
+  const [progressDotLocations, setProgressDotLocaitons] = useState<number[]>(
+    defaultState.progressDotLocations
+  );
+  const [barTotalHeight, setBarTotalHeight] = useState<number>(10000);
+
+  useEffect(() => {
+    let curContent = 0,
+      curDot = bar.current!.offsetTop || 0,
+      height = 0;
+    contentBoxRefs.current.forEach((v, i) => {
+      if (barSection.current) {
+        curDot += v.clientHeight / 2;
+        progressDotLocations[i] = curDot + barSection.current.offsetTop;
+        dotTops.push(curDot);
+        curContent += v.clientHeight + 300;
+        curDot += v.clientHeight / 2 + 300;
+      }
+    });
+    dotTops.push(curDot);
+    setDotTops(dotTops);
+    setProgressDotLocaitons(progressDotLocations);
+    setBarTotalHeight(height);
+    return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [progressDots, progressDotLocations]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', scrollEventHandler);
+    return () => {
+      window.removeEventListener('scroll', scrollEventHandler);
+    };
+  });
+
+  useEffect(() => {
+    const activeArr = progressDotLocations.map((v) => {
+      return maxScrollY >= v;
+    });
+    setProgressDotActive(activeArr);
+  }, [maxScrollY, progressDotLocations]);
+
+  const scrollEventHandler = () => {
+    bar.current &&
+      barSection.current &&
+      setProgressBarHeight(
+        Math.max(
+          progressBarHeight,
+          window.scrollY -
+            bar.current.offsetTop -
+            barSection.current.offsetTop +
+            window.innerHeight / 2
+        )
+      );
+    setMaxScrollY(
+      Math.max(maxScrollY, window.scrollY + window.innerHeight / 2)
+    );
+  };
+
+  const contentBoxes = [
+    <Fade right cascade key="content-box-0">
+      <div
+        ref={(ref) => ref && (contentBoxRefs.current[0] = ref)}
+        className="content-box"
+        style={{
+          top: progressDots.current[0] && progressDots.current[0].offsetTop,
+        }}
+      >
+        <div>2016-2020</div>
+        <div>Bachelor of Science in Computer Science</div>
+        <div>Rose-Hulman Institute of Technology</div>
+        <img src={ImgUrls.rhit} alt="rhit" />
+      </div>
+    </Fade>,
+    <Fade right cascade key="content-box-1">
+      <div
+        ref={(ref) => ref && (contentBoxRefs.current[1] = ref)}
+        className="content-box"
+        style={{
+          top: progressDots.current[1] && progressDots.current[1].offsetTop,
+        }}
+      >
+        <div>Oct 2016 – Nov 2016</div>
+        <div>
+          <b>- [JAVA, OOD]</b>
+        </div>
+        <div>ARCADE Game Project</div>
+        <div>
+          &bull; Developed an imitation of centipede game of Boomer Man in JAVA
+        </div>
+        <div>
+          &bull; Designed and developed the collision detection algorithm and
+          the movement & split logic of the bomberman, blocks and enemies
+        </div>
+        <div>
+          &bull; Designed the Graphical user interface (GUI), tested and
+          debugged for the project
+        </div>
+        <img src={ImgUrls.csse220} alt="bommer-man" width={400} />
+      </div>
+    </Fade>,
+    <Fade right cascade key="content-box-2">
+      <div
+        ref={(ref) => ref && (contentBoxRefs.current[2] = ref)}
+        className="content-box"
+        style={{
+          top: progressDots.current[2] && progressDots.current[2].offsetTop,
+        }}
+      >
+        <div>Sep 2017 – Nov 2017</div>
+        <div>
+          <b>- [Data Structures, Algorithms]</b>
+        </div>
+        <div>BASIC Data Structure implementation</div>
+        <div>
+          &bull; Implemented an self-balanced tree data structure using JAVA
+        </div>
+        <div>
+          &bull; Designed the concatenation and split of two self-balanced tree
+        </div>
+        <div>
+          &bull; Developed the data structure to achieve time efficiency
+          O(log(n)).
+        </div>
+      </div>
+    </Fade>,
+    <Fade right cascade key="content-box-3">
+      <div
+        ref={(ref) => ref && (contentBoxRefs.current[3] = ref)}
+        className="content-box"
+        style={{
+          top: progressDots.current[3] && progressDots.current[3].offsetTop,
+        }}
+      >
+        <div>Dec 2017 – Feb 2018</div>
+        <div>
+          <b>- [MS SQL]</b>
+        </div>
+        <div>RoseChat Project</div>
+        <div>
+          &bull; Developed and designed an Android app which supports online
+          chat for all rose-hulman student based on MS SQL Server and Android
+          Studio
+        </div>
+        <div>
+          &bull; Implemented the sql stored procedure for acquiring user profile
+          information, chat messages and user credentials
+        </div>
+        <img src={ImgUrls.rose_chat} alt="rose-chat" />
+      </div>
+    </Fade>,
+  ];
+
   return (
     <div className="main-container">
-      <NavigationBar />
-      <section className="main-container__top-section">
-        <div className="top-section__intro">
-          <h5>Hi, I&apos;m</h5>
-          <h2>
-            <span className="theme-green">Y</span>ifei{' '}
-            <span className="theme-green">L</span>i
-          </h2>
-          <p className="theme-green">SWE & Front-End Developer</p>
-          <div className="bottom">
-            About Me
-            <span className="about-icon">&#x269B;</span>
+      <div style={{ visibility: 'hidden', position: 'absolute', top: 0 }}>
+        {contentBoxes}
+      </div>
+      <section className="opening ">
+        <Fade left>
+          <div className="text1">Hi, This Is Yifei.</div>
+        </Fade>
+        <Fade right>
+          <div className="text2">
+            嘿，叫我
+            <br />
+            李狗蛋 就好
           </div>
-        </div>
+        </Fade>
       </section>
-      <section className="main-container__about" id="about">
-        <AboutTitle />
+      <section className="experiences">
+        <div ref={barSection} className="progress-bar">
+          <Fade>
+            <div>My Experiences</div>
+          </Fade>
+          <ProgressBar
+            height={dotTops[dotTops.length - 1] + 400}
+            progressbarRef={bar}
+            progressLength={progressBarHeight}
+          ></ProgressBar>
+          {Array.from({ length: contentBoxes.length }).map((ele, index) => (
+            <ProgressDot
+              reff={(ref) => {
+                if (ref) {
+                  progressDots.current[index] = ref;
+                }
+              }}
+              key={`dot-${index}`}
+              className={cx('dot', `dot-${index}`)}
+              active={progressDotActive[index]}
+              top={dotTops[index]}
+            ></ProgressDot>
+          ))}
+        </div>
+        <div className="content">
+          {progressDotActive.map((v, i) => v && contentBoxes[i])}
+        </div>
       </section>
     </div>
   );

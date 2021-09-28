@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import ShadowLogo from './ShadowLogo';
 type INavigationBarProps = {};
-
 const Container = styled.div`
   width: calc(100% - 40px);
   display: flex;

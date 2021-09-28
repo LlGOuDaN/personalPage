@@ -8,8 +8,9 @@ body {
   height: 100%;
   margin: 0;
   scroll-behavior: smooth;
-  background-color: #f4f4f4;
-  color: #1a1a1a;
+  background-color: #000000;
+  color: white;
+  font-family: 'Roboto', sans-serif;
 }
 
 * {
@@ -28,15 +29,11 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-family: "Josefin Sans", sans-serif;
-}
-
-.theme-green {
-  color: #47cf73;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
 }
 
 #root {
   width: 100%;
 }
 
-@import "@Containers/Main/styles.scss";
+@import '@Containers/Main/styles.scss';

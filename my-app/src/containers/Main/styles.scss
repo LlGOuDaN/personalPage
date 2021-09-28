@@ -1,77 +1,73 @@
 .main-container {
-  height: 100%;
-  width: 100%;
-  &__top-section {
-    min-height: 700px;
-    background-color: black;
-
-    .top-section__intro {
-      color: white;
+  margin: 20px;
+  .opening {
+    margin-top: 50px;
+    font-size: 80px;
+    position: relative;
+    height: 300px;
+    .text1 {
       position: absolute;
-      top: 25%;
-      right: 20%;
+      right: 40%;
+      width: fit-content;
+    }
 
-      > h5 {
-        font-size: 1.7em;
-      }
+    .text2 {
+      position: absolute;
+      bottom: 0;
+      left: 40%;
+      width: fit-content;
+    }
+  }
+  .experiences {
+    display: flex;
+    margin-top: 50px;
 
-      > h2 {
-        position: relative;
-        margin-top: 0.2em;
-        font-size: 3em;
-        letter-spacing: 8px;
-      }
-
-      > h2::after {
+    .progress-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 30px;
+      position: relative;
+      margin-left: 80px;
+      .dot {
+        z-index: 999;
         position: absolute;
-        content: "";
-        width: 150px;
-        height: 2px;
-        bottom: -8px;
-        right: 1px;
-        background: #47cf73;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
       }
+    }
 
-      > p {
-        font-size: 1em;
-        font-weight: 400;
-        padding: 4px 14px;
-        letter-spacing: 7px;
-        background: rgba(255, 255, 255, 0.2);
-      }
-
-      .bottom {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        letter-spacing: 3px;
-
-        .about-icon {
-          font-size: 25px;
-          cursor: pointer;
-          position: relative;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          margin-left: 10px;
-          width: 35px;
-          height: 35px;
-          border-radius: 50%;
-          border-left: 1px solid #47cf73;
-          transition: 0.5s ease-in;
-        }
-
-        .about-icon:hover {
-          transform: rotate(90deg);
-          border-left: none;
-          border-bottom: 1px solid white;
-          color: #47cf73;
+    .content {
+      width: 100%;
+      position: relative;
+      .content-box {
+        font-size: 20px;
+        transform: translateY(-50%);
+        position: absolute;
+        img {
+          margin-top: 10px;
+          border-radius: 5px;
         }
       }
     }
   }
+}
 
-  &__about {
-    margin-top: 4em;
+@keyframes gradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  25% {
+    background-position: 100% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  75% {
+    background-position: 0% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
   }
 }

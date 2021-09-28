@@ -13,8 +13,8 @@ type IShadowLogoStyleProps = {
 };
 
 const Container = styled.div<IShadowLogoStyleProps>`
-  color: ${(props) => props.color};
-  font-size: ${(props) => props.fontSize}px;
+  color: ${(props:IShadowLogoStyleProps) => props.color};
+  font-size: ${(props:IShadowLogoStyleProps) => props.fontSize}px;
 
   .shadow-logo--inverse {
     opacity: 0.2;
