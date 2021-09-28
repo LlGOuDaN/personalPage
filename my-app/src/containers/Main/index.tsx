@@ -27,6 +27,8 @@ export default function Main(props: IMainProps) {
     maxScrollY: window.scrollY + window.innerHeight / 2,
   };
 
+  const [loading, setLoading] = useState<boolean>(true);
+
   const [progressDotActive, setProgressDotActive] = useState<boolean[]>(
     defaultState.progressDotActive
   );
@@ -38,14 +40,13 @@ export default function Main(props: IMainProps) {
   const [progressDotLocations, setProgressDotLocaitons] = useState<number[]>(
     defaultState.progressDotLocations
   );
-  const [barTotalHeight, setBarTotalHeight] = useState<number>(10000);
 
   useEffect(() => {
     let curContent = 0,
-      curDot = bar.current!.offsetTop || 0,
-      height = 0;
+      curDot = bar.current!.offsetTop || 0;
     contentBoxRefs.current.forEach((v, i) => {
       if (barSection.current) {
+        console.info(v.offsetHeight, v.clientHeight, v.clientWidth, v);
         curDot += v.clientHeight / 2;
         progressDotLocations[i] = curDot + barSection.current.offsetTop;
         dotTops.push(curDot);
@@ -56,10 +57,10 @@ export default function Main(props: IMainProps) {
     dotTops.push(curDot);
     setDotTops(dotTops);
     setProgressDotLocaitons(progressDotLocations);
-    setBarTotalHeight(height);
+    setLoading(false);
     return () => {};
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [progressDots, progressDotLocations]);
+  }, []);
 
   useEffect(() => {
     window.addEventListener('scroll', scrollEventHandler);
@@ -109,8 +110,8 @@ export default function Main(props: IMainProps) {
     </Fade>,
     <Fade right cascade key="content-box-1">
       <div
-        ref={(ref) => ref && (contentBoxRefs.current[1] = ref)}
         className="content-box"
+        ref={(ref) => ref && (contentBoxRefs.current[1] = ref)}
         style={{
           top: progressDots.current[1] && progressDots.current[1].offsetTop,
         }}
@@ -188,9 +189,6 @@ export default function Main(props: IMainProps) {
 
   return (
     <div className="main-container">
-      <div style={{ visibility: 'hidden', position: 'absolute', top: 0 }}>
-        {contentBoxes}
-      </div>
       <section className="opening ">
         <Fade left>
           <div className="text1">Hi, This Is Yifei.</div>
@@ -209,27 +207,34 @@ export default function Main(props: IMainProps) {
             <div>My Experiences</div>
           </Fade>
           <ProgressBar
-            height={dotTops[dotTops.length - 1] + 400}
+            height={dotTops[dotTops.length - 1] + 400 || 10000}
             progressbarRef={bar}
             progressLength={progressBarHeight}
           ></ProgressBar>
-          {Array.from({ length: contentBoxes.length }).map((ele, index) => (
-            <ProgressDot
-              reff={(ref) => {
-                if (ref) {
-                  progressDots.current[index] = ref;
-                }
-              }}
-              key={`dot-${index}`}
-              className={cx('dot', `dot-${index}`)}
-              active={progressDotActive[index]}
-              top={dotTops[index]}
-            ></ProgressDot>
-          ))}
+          {!loading &&
+            Array.from({ length: contentBoxes.length }).map((ele, index) => (
+              <ProgressDot
+                reff={(ref) => {
+                  if (ref) {
+                    progressDots.current[index] = ref;
+                  }
+                }}
+                key={`dot-${index}`}
+                className={cx('dot', `dot-${index}`)}
+                active={progressDotActive[index]}
+                top={dotTops[index]}
+              ></ProgressDot>
+            ))}
         </div>
-        <div className="content">
-          {progressDotActive.map((v, i) => v && contentBoxes[i])}
-        </div>
+        {!loading ? (
+          <div className="content">
+            {progressDotActive.map((v, i) => v && contentBoxes[i])}
+          </div>
+        ) : (
+          <div className="content" style={{ visibility: 'hidden' }}>
+            {contentBoxes}
+          </div>
+        )}
       </section>
     </div>
   );
